@@ -3,6 +3,8 @@ import express from 'express';
 import { Pool } from 'pg';
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 const port = process.env.PORT || 8086;
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
