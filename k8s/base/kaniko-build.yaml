@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kaniko
+  namespace: messaging-gateway
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kaniko-build
+  namespace: messaging-gateway
+spec:
+  restartPolicy: Never
+  serviceAccountName: kaniko
+  containers:
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:latest
+    args:
+    - --dockerfile=/workspace/Dockerfile
+    - --context=git://github.com/gono4enko/messaging-gateway.git#refs/heads/main
+    - --destination=ghcr.io/gono4enko/messaging-gateway:latest
+    - --cache=true
+    - --snapshotMode=redo
+    volumeMounts:
+    - name: docker-config
+      mountPath: /kaniko/.docker
+  volumes:
+  - name: docker-config
+    secret:
+      secretName: ghcr-auth
+      items:
+      - key: .dockerconfigjson
+        path: config.json
