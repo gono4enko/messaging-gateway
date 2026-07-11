@@ -1,4 +1,6 @@
-FROM tobyxdd/hy2:latest AS hy2
-FROM busybox:1.36
-COPY --from=hy2 /usr/local/bin/hysteria /usr/local/bin/hysteria
-ENTRYPOINT ["/usr/local/bin/hysteria"]
+FROM alpine:3.20 AS dl
+RUN wget -q https://github.com/apernet/hysteria/releases/download/v2.6.1/hysteria-linux-amd64 -O /usr/local/bin/hy2 && chmod +x /usr/local/bin/hy2
+
+FROM alpine:3.20
+COPY --from=dl /usr/local/bin/hy2 /usr/local/bin/hy2
+ENTRYPOINT ["/usr/local/bin/hy2"]
