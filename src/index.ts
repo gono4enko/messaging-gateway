@@ -30,6 +30,22 @@ app.get('/privacy', (_req, res) => {
 </body></html>`);
 });
 
+// Terms of Service (required by Meta for app publishing)
+app.get('/terms', (_req, res) => {
+  res.type('html').send(`<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><title>Пользовательское соглашение — Comfort House</title><style>body{font-family:system-ui,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;line-height:1.6;color:#333}h1{font-size:1.5em}h2{font-size:1.2em;margin-top:1.5em}</style></head><body>
+<h1>Пользовательское соглашение</h1>
+<p><strong>Компания:</strong> Комфорт Хаус<br><strong>Дата:</strong> 11 июля 2026 г.</p>
+<h2>1. Общие условия</h2>
+<p>Сайт pergolarussia.ru предоставляет информацию о продукции. Цены не являются публичной офертой.</p>
+<h2>2. Калькуляторы</h2>
+<p>Расчёты предварительные. Итоговая стоимость — после замера.</p>
+<h2>3. Мессенджер-боты</h2>
+<p>Боты обрабатывают запросы автоматически.</p>
+<h2>4. Контакты</h2>
+<p>Email: <a href="mailto:info@pergolarussia.ru">info@pergolarussia.ru</a></p>
+</body></html>`);
+});
+
 // Data deletion instructions (required by Meta for app publishing)
 app.get('/data-deletion', (_req, res) => {
   res.type('html').send(`<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><title>Удаление данных пользователей — Comfort House</title><style>body{font-family:system-ui,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;line-height:1.6;color:#333}h1{font-size:1.5em}h2{font-size:1.2em;margin-top:1.5em}</style></head><body>
