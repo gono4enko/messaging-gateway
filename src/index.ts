@@ -6,6 +6,30 @@ const app = express();
 const port = process.env.PORT || 8086;
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
+// Privacy Policy page (required by Meta for app publishing)
+app.get('/privacy', (_req, res) => {
+  res.type('html').send(`<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><title>Политика конфиденциальности — Comfort House</title><style>body{font-family:system-ui,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;line-height:1.6;color:#333}h1{font-size:1.5em}h2{font-size:1.2em;margin-top:1.5em}</style></head><body>
+<h1>Политика конфиденциальности</h1>
+<p><strong>Компания:</strong> Комфорт Хаус (Comfort House)<br>
+<strong>Сайт:</strong> <a href="https://pergolarussia.ru">pergolarussia.ru</a><br>
+<strong>Дата обновления:</strong> 11 июля 2026 г.</p>
+<h2>1. Какие данные мы собираем</h2>
+<p>Имя, телефон, email, город, параметры конструкций, история диалогов с ботами.</p>
+<h2>2. Как мы используем данные</h2>
+<p>Для расчёта стоимости, связи по заказу, улучшения сервиса.</p>
+<h2>3. Передача данных третьим лицам</h2>
+<p>Только для выполнения заказа (курьеры, монтажники). Не продаём данные.</p>
+<h2>4. Хранение</h2>
+<p>На защищённых серверах. Данные без заказа удаляются через 12 месяцев.</p>
+<h2>5. Ваши права</h2>
+<p>Запросить доступ к данным, потребовать исправления/удаления, отозвать согласие.</p>
+<h2>6. Cookies</h2>
+<p>Для работы калькуляторов и аналитики (Яндекс.Метрика).</p>
+<h2>7. Контакты</h2>
+<p>Email: <a href="mailto:info@pergolarussia.ru">info@pergolarussia.ru</a></p>
+</body></html>`);
+});
+
 // Data deletion instructions (required by Meta for app publishing)
 app.get('/data-deletion', (_req, res) => {
   res.type('html').send(`<!DOCTYPE html><html lang="ru"><head><meta charset="utf-8"><title>Удаление данных пользователей — Comfort House</title><style>body{font-family:system-ui,sans-serif;max-width:800px;margin:40px auto;padding:0 20px;line-height:1.6;color:#333}h1{font-size:1.5em}h2{font-size:1.2em;margin-top:1.5em}</style></head><body>
