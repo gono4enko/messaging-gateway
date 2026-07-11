@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mg-migrate
+  namespace: messaging-gateway
+spec:
+  backoffLimit: 3
+  template:
+    spec:
+      restartPolicy: Never
+      imagePullSecrets:
+      - name: ghcr-auth
+      containers:
+      - name: migrate
+        image: ghcr.io/gono4enko/messaging-gateway:latest
+        command: ["node", "dist/migrate.js"]
+        envFrom:
+        - secretRef:
+            name: mg-secrets
