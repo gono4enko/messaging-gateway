@@ -1,5 +1,5 @@
 FROM alpine:3.20 AS dl
-RUN wget -q https://github.com/apernet/hysteria/releases/download/v2.6.1/hysteria-linux-amd64 -O /usr/local/bin/hy2 && chmod +x /usr/local/bin/hy2
+RUN wget -q "https://github.com/apernet/hysteria/releases/download/app%2Fv2.9.3/hysteria-linux-amd64" -O /usr/local/bin/hy2 && chmod +x /usr/local/bin/hy2
 
 FROM alpine:3.20
 COPY --from=dl /usr/local/bin/hy2 /usr/local/bin/hy2
