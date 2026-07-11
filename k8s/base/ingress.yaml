@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: messaging-gateway
+  namespace: messaging-gateway
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: gateway.pergolarussia.ru
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: messaging-gateway
+            port:
+              number: 8086
+  tls:
+  - hosts:
+    - gateway.pergolarussia.ru
+    secretName: gateway-tls

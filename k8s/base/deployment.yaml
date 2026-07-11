@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: messaging-gateway
+  namespace: messaging-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: messaging-gateway
+  template:
+    metadata:
+      labels:
+        app: messaging-gateway
+    spec:
+      containers:
+      - name: app
+        image: ghcr.io/gono4enko/messaging-gateway:latest
+        ports:
+        - containerPort: 8086
+        envFrom:
+        - secretRef:
+            name: mg-secrets
+        - configMapRef:
+            name: mg-config
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8086
+          initialDelaySeconds: 10
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8086
+          initialDelaySeconds: 5
+          periodSeconds: 10
